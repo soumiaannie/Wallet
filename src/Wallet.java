@@ -1,27 +1,51 @@
-public class Wallet {
-    Double amount;
+public abstract class Wallet {
+    protected Double walletAmount;
+    protected String walletName;
 
-    Wallet(Double amount)
+
+    Wallet(Double walletAmount)
     {
-        this.amount=amount;
+
+        this.walletAmount=walletAmount;
     }
 
-    public void putMoney(Double delta)
-    {
-        amount = amount+delta;
-        System.out.println("Amount is " +amount);
+    public String getWalletName() {
+        return walletName;
     }
 
-    public void takeMoney(Double rDelta)
+    public double getwalletAmount()
     {
-        if (amount >= rDelta)
+        return walletAmount;
+    }
+
+    public void addMoney(Double money)
+    {
+        walletAmount = walletAmount+money;
+        //System.out.println("Money added to Wallet");
+        this.displayWalletBalance();
+
+    }
+
+    public void deductMoney(Double money)
+    {
+        if (walletAmount >= money)
         {
-            amount = amount-rDelta;
-            System.out.println("Deducted amount. Current balance is " +amount);
+            walletAmount = walletAmount-money;
+            //System.out.println("Deducted money withdrwan from Wallet.");
+            displayWalletBalance();
 
         }
         else
-        System.out.println("Not enough Money");
+        System.out.println("This transaction cannot be done as there is not enough Money in the Wallet");
     }
+
+    public void displayWalletBalance()
+    {
+        System.out.println("The current balance in the Wallet is " +walletAmount);
+    }
+
+    public  abstract void  doTransaction(Double transactionAmount, TransactionType transactionType);
+
+
 }
 
